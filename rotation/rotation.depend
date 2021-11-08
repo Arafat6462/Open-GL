@@ -1,13 +1,8 @@
 # depslib dependency file v1.0
-1636391027 source:c:\users\arafa\onedrive\documents\open gl\rumc_draw\main.cpp
+1636390611 source:c:\users\arafa\onedrive\documents\open gl\rotation\main.cpp
 	<windows.h>
 	<GL/glut.h>
 	<math.h>
-
-976692172 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
-	<windows.h>
-	<GL/gl.h>
-	<GL/glu.h>
 
 1301111162 c:\program files (x86)\codeblocks\mingw\include\windows.h
 	<winresrc.h>
@@ -212,6 +207,11 @@
 
 1301111156 c:\program files (x86)\codeblocks\mingw\include\oleidl.h
 	<objfwd.h>
+
+976692172 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
 
 1301111164 c:\program files (x86)\codeblocks\mingw\include\gl\gl.h
 
