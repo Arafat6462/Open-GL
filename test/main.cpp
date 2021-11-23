@@ -1,202 +1,144 @@
- #include <windows.h>  // for MS Windows
-#include <GL/glut.h>  // GLUT, include glu.h and gl.h
-#include<math.h>>
+ #include<cstdio>
 
-# define PI           3.14159265358979323846
-
-/* Handler for window-repaint event. Call back when the window first appears and
-whenever the window needs to be re-painted. */
-void display() {
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Set background color to black and opaque
-	glClear(GL_COLOR_BUFFER_BIT);         // Clear the color buffer (background)
+#include <GL/gl.h>
+#include <GL/glut.h>
 
 
-	//////////////////// Quads
-    glBegin(GL_QUADS);
-    glColor3ub(228,3,3);
-    glVertex2f(-.8,.6);
-    glVertex2f(.8,.6);
-    glVertex2f(.8,.4);
-    glVertex2f(-.8,.4);
-    glEnd();
+GLfloat position = 0.0f;
+GLfloat position1 = 0.0f;
+GLfloat speed = 0.1f;
+void dis();
+void display();
 
-     glBegin(GL_QUADS);
-    glColor3ub(255,140,0);
-    glVertex2f(-.8,.4);
-    glVertex2f(.8,.4);
-    glVertex2f(.8,.2);
-    glVertex2f(-.8,.2);
-    glEnd();
+void update(int value) {
 
-     glBegin(GL_QUADS);
-    glColor3ub(255,255,0);
-    glVertex2f(-.8,.2);
-    glVertex2f(.8,.2);
-    glVertex2f(.8,.0);
-    glVertex2f(-.8,.0);
-    glEnd();
+    if(position <-1.5)
+        position = 1.0f;
 
-     glBegin(GL_QUADS);
-    glColor3ub(0,128,38);
-    glVertex2f(-.8,.0);
-    glVertex2f(.8,.0);
-    glVertex2f(.8,-.2);
-    glVertex2f(-.8,-.2);
-    glEnd();
+    position -= speed;
 
-     glBegin(GL_QUADS);
-    glColor3ub(0,77,255);
-    glVertex2f(-.8,-.2);
-    glVertex2f(.8,-.2);
-    glVertex2f(.8,-.4);
-    glVertex2f(-.8,-.4);
-    glEnd();
-
-     glBegin(GL_QUADS);
-    glColor3ub(117,7,135);
-    glVertex2f(-.8,-.4);
-    glVertex2f(.8,-.4);
-    glVertex2f(.8,-.6);
-    glVertex2f(-.8,-.6);
-    glEnd();
+	glutPostRedisplay();
 
 
-
-
-    glBegin(GL_TRIANGLES);
-    glColor3ub(0,106,78);
-    glVertex2f(-.8,.6);
-    glVertex2f(0,0);
-    glVertex2f(-.8,-.6);
-    glEnd();
-
-    // stand
-    glBegin(GL_QUADS);
-    glColor3ub(107,135,144);
-    glVertex2f(-.9,.6);
-    glVertex2f(-.8,.6);
-    glVertex2f(-.8,-1);
-    glVertex2f(-.9,-1);
-    glEnd();
-
-    // FLAG F
-    glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(-.5,-.7);
-    glVertex2f(-.5,-0.95);
-    glEnd();
-
-    glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(-.5,-.7);
-    glVertex2f(-.3,-0.7);
-    glEnd();
-
-    glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(-.5,-.8);
-    glVertex2f(-.3,-.8);
-    glEnd();
-
-    // L
-    glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(-.2,-.7);
-    glVertex2f(-.2,-0.95);
-    glEnd();
-
-    glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(-.2,-.95);
-    glVertex2f(0,-0.95);
-    glEnd();
-
-    //A
-     glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(.1,-.95);
-    glVertex2f(.2,-0.7);
-    glEnd();
-
-     glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(.3,-.95);
-    glVertex2f(.2,-0.7);
-    glEnd();
-
-     glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(.14,-.83);
-    glVertex2f(.26,-0.83);
-    glEnd();
-
-    //G
-
-    glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(.6,-.7);
-    glVertex2f(.4,-0.7);
-    glEnd();
-
-    glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(.4,-.7);
-    glVertex2f(.4,-0.95);
-    glEnd();
-
-     glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(.6,-.95);
-    glVertex2f(.4,-0.95);
-    glEnd();
-
-     glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(.6,-.95);
-    glVertex2f(.6,-0.83);
-    glEnd();
-
-     glBegin(GL_LINES);
-    glColor3ub(0,.1,.6);
-    glVertex2f(.5,-.83);
-    glVertex2f(.6,-0.83);
-    glEnd();
-
-
-	///////////////////
-
-	GLfloat x=-.5f; GLfloat y=.0f; GLfloat radius =.18f;
-	int triangleAmount = 50; //# of triangles used to draw circle
-
-	//GLfloat radius = 0.8f; //radius
-	GLfloat twicePi = 2.0f * PI;
-
-	glBegin(GL_TRIANGLE_FAN);
-	glColor3ub(219,0,64);
-		glVertex2f(x, y); // center of circle
-		for(int i = 0; i <= triangleAmount;i++) {
-			glVertex2f(
-		            x + (radius * cos(i *  twicePi / triangleAmount)),
-                    y + (radius * sin(i * twicePi / triangleAmount))
-			);
-		}
-		glEnd();
-
-
-
-	glFlush();  // Render now
+	glutTimerFunc(100,update,0);
 }
 
-/* Main function: GLUT runs as a console application starting at main()  */
+
+void update1(int value) {
+
+    if(position1 >1.0)
+        position1 = -1.0f;
+
+    position1 += speed;
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100,update1,0);
+}
+
+void init() {
+   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+void disback(int val)
+{
+    //glutDisplayFunc(display);
+}
+
+
+void late_night()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glPushMatrix();
+glTranslatef(0.0f,position, 0.0f);
+   glBegin(GL_QUADS);
+      glColor3f(0.0f, 0.0f, 1.0f);
+      glVertex2f(-0.2f, -0.2f);
+      glVertex2f( 0.2f, -0.2f);
+      glVertex2f( 0.2f,  0.2f);
+      glVertex2f(-0.2f,  0.2f);
+   glEnd();
+   glPopMatrix();
+   //glutTimerFunc(1500,disback,0);
+   glFlush();
+
+}
+
+void demo_late_night(int val) {
+
+ glutDisplayFunc(late_night);
+
+
+}
+
+
+
+void night()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glPushMatrix();
+glTranslatef(position1,0.0f, 0.0f);
+   glBegin(GL_QUADS);
+      glColor3f(0.0f, 1.0f, 0.0f);
+      glVertex2f(-0.2f, -0.2f);
+      glVertex2f( 0.2f, -0.2f);
+      glVertex2f( 0.2f,  0.2f);
+      glVertex2f(-0.2f,  0.2f);
+   glEnd();
+   glPopMatrix();
+   glutTimerFunc(1500,demo_late_night,0);
+   glFlush();
+}
+
+void night_demo(int val) {
+
+ glutDisplayFunc(night);
+
+
+}
+void day() {
+   glClear(GL_COLOR_BUFFER_BIT);
+
+
+glPushMatrix();
+glTranslatef(position,0.0f, 0.0f);
+   glBegin(GL_QUADS);
+      glColor3f(1.0f, 0.0f, 0.0f);
+      glVertex2f(-0.2f, -0.2f);
+      glVertex2f( 0.2f, -0.2f);
+      glVertex2f( 0.2f,  0.2f);
+      glVertex2f(-0.2f,  0.2f);
+   glEnd();
+   glBegin(GL_TRIANGLES);
+   glColor3f(0.0f, 0.0f, 1.0f);
+   glVertex2f(0.2f,-0.2f);
+   glVertex2f(0.5f, 0.0f);
+   glVertex2f(0.2f, 0.2f);
+   glEnd();
+
+glPopMatrix();
+
+glutTimerFunc(1500,night_demo,0);
+glFlush();
+
+}
+
+
+
 int main(int argc, char** argv) {
-	glutInit(&argc, argv);                 // Initialize GLUT
-	glutCreateWindow("OpenGL Setup Test"); // Create a window with the given title
-	glutInitWindowSize(320, 320);   // Set the window's initial width & height
-	glutDisplayFunc(display); // Register display callback handler for window re-paint
-	glutMainLoop();           // Enter the event-processing loop
-	return 0;
+   glutInit(&argc, argv);
+   glutInitWindowSize(320, 320);
+   glutInitWindowPosition(50, 50);
+   glutCreateWindow("Translation Animation");
+   glutDisplayFunc(day);
+   init();
+
+   glutTimerFunc(100, update, 0);
+     glutTimerFunc(100, update1, 0);
+   glutMainLoop();
+   return 0;
 }
-
-
-
 
