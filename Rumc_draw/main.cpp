@@ -4941,7 +4941,7 @@ glTranslatef(position,position_Yvalue,0);
     //////////////////////////////-------------- moving ball in ground end
 
 
-    glutTimerFunc(3500,day_demo,0);
+    glutTimerFunc(3000,day_demo,0);
 
 	glFlush();  // Render now
 }

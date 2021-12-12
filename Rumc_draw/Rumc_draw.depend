@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1637638762 source:c:\users\arafa\onedrive\documents\open gl\rumc_draw\main.cpp
+1637639543 source:c:\users\arafa\onedrive\documents\open gl\rumc_draw\main.cpp
 	<windows.h>
 	<GL/glut.h>
 	<math.h>
