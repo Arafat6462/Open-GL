@@ -334,13 +334,11 @@ void footpath(){
 
 
 
-void movingsun(){
-
-glPushMatrix();
-glTranslatef(position,position,0);
+void sun(){
 
 
-	GLfloat  x=position;  GLfloat y=position;  GLfloat radius =70.0f;
+
+	GLfloat  x=400;  GLfloat y=200;  GLfloat radius =70.0f;
 	 int triangleAmount = 150; //# of triangles used to draw circle
 
 	//GLfloat radius = 0.8f; //radius
@@ -357,10 +355,32 @@ glTranslatef(position,position,0);
 		}
 		glEnd();
 
-glPopMatrix();
 
 }
 
+void car(){
+
+
+     glColor3ub(50,70,75);
+     drawQuads(250,950,40,200);
+
+    glBegin(GL_QUADS); // body
+    glColor3ub(50,70,75);
+    glVertex2f(250,950);
+    glVertex2f(300,920);
+    glVertex2f(430,920);
+    glVertex2f(450,950);
+    glEnd();
+
+    glColor3ub(122,122,122); // window
+    drawQuads(310,930,25,40);
+    drawQuads(380,930,25,40);
+
+    glColor3ub(0,0,0); //wheel
+    circle(280,980, 15);
+    circle(420,980, 15);
+
+}
 
 void myDisplay(void)
 {
@@ -374,11 +394,14 @@ glPointSize(5.0);
 //background theme
 background(1, 2, 3, 4);
 
-movingsun();
+sun();
+
+
 
 //footpath
 footpath();
 
+car();
 //trees
 //trees();
 
