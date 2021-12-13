@@ -1,4 +1,3 @@
-
 #include <cstdio>
 #include<GL/gl.h>
 #include <GL/glut.h>
@@ -25,9 +24,11 @@ void background(int a,int b,int c, int d){
 	glColor3ub(138, 74, 75);
 	glVertex2i(0, 837);
 	glColor3ub(0,128,0);//field
-	drawQuads(0,650,187,1920);
 
 	glEnd();
+
+	drawQuads(0,650,187,1920);
+
 }
 void building(){
     glColor3ub(196, 187, 171);
@@ -330,14 +331,16 @@ glPointSize(5.0);
 //background theme
 background(1, 2, 3, 4);
 
-//Building
-building();
+
 
 //footpath
 footpath();
 
 //trees
-trees();
+//trees();
+
+//Building
+building();
 
 
 glEnd();
