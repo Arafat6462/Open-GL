@@ -3,22 +3,33 @@
 #include <GL/glut.h>
 #include<math.h>>
 # define PI           3.14159265358979323846
-GLfloat position = 0.0f;
-GLfloat speed = 30.0f;
+GLfloat sunx = 0.0f;
+GLfloat suny = 0.0f;
+GLfloat carx = 0.0f;
+GLfloat speed = 5.0f;
+GLfloat carspeed = 10.0f;
 
 
 void update(int value) {
 
-    if(position >1920)
-        position = 0.0f;
+    if(sunx >1920)
+    {
+        sunx = 0.0f;
+        suny = 0.0f;
+    }
 
-    position += speed; //position=position+speed;
+    if(carx <0)
+        carx = 1500;
 
+    sunx += speed; //position=position+speed;
+    suny +=speed/4;
+    carx -=carspeed;
 	glutPostRedisplay();
 
 
 	glutTimerFunc(100, update, 0);
 }
+
 
 
 void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width);
@@ -337,6 +348,10 @@ void footpath(){
 void sun(){
 
 
+    glPushMatrix();
+    glTranslatef(sunx,suny,0);
+
+
 
 	GLfloat  x=400;  GLfloat y=200;  GLfloat radius =70.0f;
 	 int triangleAmount = 150; //# of triangles used to draw circle
@@ -355,16 +370,20 @@ void sun(){
 		}
 		glEnd();
 
+		glPopMatrix();
+
 
 }
 
 void car(){
 
+     glPushMatrix();
+     glTranslatef(carx,0,0);
 
-     glColor3ub(50,70,75);
+     glColor3ub(50,70,75); // body down part
      drawQuads(250,950,40,200);
 
-    glBegin(GL_QUADS); // body
+    glBegin(GL_QUADS); // body up part
     glColor3ub(50,70,75);
     glVertex2f(250,950);
     glVertex2f(300,920);
@@ -379,6 +398,8 @@ void car(){
     glColor3ub(0,0,0); //wheel
     circle(280,980, 15);
     circle(420,980, 15);
+
+    glPopMatrix();
 
 }
 
@@ -433,6 +454,7 @@ glutInitWindowPosition (960, 540);
 glutCreateWindow ("Songsod Vobon");
 glutDisplayFunc(myDisplay);
 myInit ();
+glutTimerFunc(100, update, 0);
 glutMainLoop();
 
 }
