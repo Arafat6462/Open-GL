@@ -5,10 +5,13 @@
 # define PI           3.14159265358979323846
 GLfloat sunx = 0.0f;
 GLfloat suny = 0.0f;
+GLfloat suny_Day = 0.0f;
 GLfloat carx = 0.0f;
 GLfloat speed = 5.0f;
 GLfloat planex = .0f;
 GLfloat carspeed = 8.0f;
+GLfloat cloudx = 0.0f;
+
 
 
 void update(int value) {
@@ -17,6 +20,7 @@ void update(int value) {
     {
         sunx = 0.0f;
         suny = 0.0f;
+        suny_Day = 0.0f;
     }
 
     if(carx <-400)
@@ -24,12 +28,18 @@ void update(int value) {
 
     if(planex < 0)
         planex = 1600;
+    if(cloudx <-300)
+        cloudx = 1100;
 
     sunx += speed; //position=position+speed;
-    suny +=speed/4;
+    suny +=speed/4; // sun go down
+    suny_Day -=speed/6; //sun go up
     carx -=carspeed;
-	glutPostRedisplay();
-	planex -= 8;
+	planex -= 10;
+	cloudx -= 7;
+
+    glutPostRedisplay();
+
 
 
 	glutTimerFunc(100, update, 0);
@@ -59,6 +69,9 @@ void borderQuadSTRIP(GLfloat a, GLfloat b,GLfloat c, GLfloat d,GLfloat e, GLfloa
 void Triangle(GLfloat a, GLfloat b,GLfloat c, GLfloat d,GLfloat e, GLfloat f);
 void BorderTriangle(GLfloat a, GLfloat b,GLfloat c, GLfloat d,GLfloat e, GLfloat f);
 void circle(GLfloat x, GLfloat y,GLfloat radius);
+void myDisplay_demo(int val);
+
+
 
 void background(int a,int b,int c, int d){
 	glBegin(GL_QUADS);
@@ -446,6 +459,256 @@ void car2(){
 }
 
 
+///////////////////////////////////// Day view ////////////////////////////////////////////////////
+void background_Day(int a,int b,int c, int d){
+	glBegin(GL_QUADS);
+	glColor3ub(175, 207, 205);
+	glVertex2i(0, 0);
+	glColor3ub(175, 207, 205);
+	glVertex2i(1920, 0);
+	glColor3ub(175, 207, 205);
+	glVertex2i(1920, 837);
+	glColor3ub(138, 200, 75);
+	glVertex2i(0, 837);
+	glColor3ub(0,128,0);//field
+
+	glEnd();
+
+	drawQuads(0,650,187,1920);
+
+}
+void footpath_Day(){
+	int flag=0;
+	glColor3ub(180, 180, 180);//road footpath
+	drawQuads(0, 837, 40, 1920);
+	for(int i=0;i<1920;i+=40){
+		if(flag==0){
+			glColor3ub(68, 47, 46);
+			drawQuads(i, 877, 3, 80);
+
+			glColor3ub(255, 24, 8);
+			drawQuads(i, 880, 20, 80);
+			glColor3ub(0,69,19);//line for footpath
+			drawQuads(i,787,50,5);
+
+
+			flag=1;
+		}
+		else{
+			glColor3ub(110, 95, 88);
+			drawQuads(i, 877, 3, 80);
+			glColor3ub(253, 255, 255);
+			drawQuads(i, 880, 20, 80);
+
+			flag=0;
+		}
+	}
+	glColor3ub(75, 80, 80);//road
+	drawQuads(0, 900, 180, 1920);
+}
+
+void sun_Day(){
+
+
+    glPushMatrix();
+    glTranslatef(sunx,suny_Day,0);
+
+
+
+	GLfloat  x=400;  GLfloat y=200;  GLfloat radius =70.0f;
+	 int triangleAmount = 150; //# of triangles used to draw circle
+
+	//GLfloat radius = 0.8f; //radius
+    GLfloat twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(240,230,170);
+		glVertex2f(x, y); // center of circle
+		for(int i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+                    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+		glEnd();
+
+		glPopMatrix();
+
+
+}
+void car_Day(){
+
+     glPushMatrix();
+     glTranslatef(carx,0,0);
+
+     glColor3ub(180,80,35); // body down part
+     drawQuads(250,950,20,150);
+
+    glBegin(GL_QUADS); // body up part
+    glColor3ub(180,80,35);
+    glVertex2f(250,950);
+    glVertex2f(300,930);
+    glVertex2f(380,930);
+    glVertex2f(400,950);
+    glEnd();
+
+    glColor3ub(220,160,100); // window
+    drawQuads(310,930,25,40);
+
+    glColor3ub(40,50,70); //wheel
+    circle(280,970, 15);
+    circle(380,970, 15);
+
+
+    glPopMatrix();
+
+}
+void car2_Day(){
+
+     glPushMatrix();
+     glTranslatef(carx,0,0);
+
+     glColor3ub(140,160,160); // body down part
+     drawQuads(850,950,40,200);
+
+    glBegin(GL_QUADS); // body up part
+    glColor3ub(75,95,95);
+    glVertex2f(850,950);
+    glVertex2f(900,920);
+    glVertex2f(1030,920);
+    glVertex2f(1050,950);
+    glEnd();
+
+    glColor3ub(82,82,82); // window
+    drawQuads(910,930,25,40);
+    drawQuads(980,930,25,40);
+
+    glColor3ub(40,50,70); //wheel
+    circle(880,980, 15);
+    circle(1020,980, 15);
+
+
+    glPopMatrix();
+
+}
+void cloud_Day(){
+  glPushMatrix();
+    glTranslatef(cloudx,0, 0);
+
+
+
+	int i;
+
+	GLfloat x=600.1f; GLfloat y=100.4f; GLfloat radius =30.2f;
+	int triangleAmount = 20;
+
+	GLfloat twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	 x=630.3f;  y=100.4f;  radius =40.3f;
+	 triangleAmount = 20;
+	 twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	 x=660.6f;  y=100.4f;  radius =30.2f;
+	 triangleAmount = 20;
+
+	 twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+
+	 x=750.6f;  y=150.4f;  radius =30.2f;
+	 triangleAmount = 20;
+
+	 twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+
+	 x=780.6f;  y=150.4f;  radius =40.2f;
+	 triangleAmount = 20;
+
+	 twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+
+	 x=810.6f;  y=150.4f;  radius =30.2f;
+	 triangleAmount = 20;
+
+	 twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+
+
+	glPopMatrix();
+	}
+//////////////////////////////////////////////////////////////////////////////////////
+
 void plane(){
 
   glPushMatrix();
@@ -509,8 +772,42 @@ glBegin(GL_QUADS);
      glPopMatrix();
 
 }
-void myDisplay(void)
-{
+
+
+void day(){
+
+//background theme
+background_Day(1, 2, 3, 4);
+
+sun_Day();
+
+//footpath
+footpath_Day();
+
+
+
+car_Day();
+car2_Day();
+cloud_Day();
+plane();
+//trees
+//trees();
+
+
+//Building
+building();
+
+glEnd();
+glutTimerFunc(5000,myDisplay_demo,0);
+
+}
+void day_demo(int val){
+
+glutDisplayFunc(day);
+}
+
+
+void myDisplay(void){
 glClear (GL_COLOR_BUFFER_BIT);
 
 glPointSize(5.0);
@@ -523,11 +820,11 @@ background(1, 2, 3, 4);
 
 sun();
 
-
-
 //footpath
 footpath();
-plane();
+
+
+//plane();
 car();
 car2();
 //trees
@@ -537,11 +834,16 @@ car2();
 //Building
 building();
 
-
-
 glEnd();
+
+glutTimerFunc(5000,day_demo,0);
+
 glFlush ();
 
+}
+void myDisplay_demo(int val){
+
+glutDisplayFunc(myDisplay);
 }
 
 
