@@ -7,7 +7,7 @@ GLfloat sunx = 0.0f;
 GLfloat suny = 0.0f;
 GLfloat carx = 0.0f;
 GLfloat speed = 5.0f;
-GLfloat carspeed = 10.0f;
+GLfloat carspeed = 8.0f;
 
 
 void update(int value) {
@@ -18,8 +18,8 @@ void update(int value) {
         suny = 0.0f;
     }
 
-    if(carx <0)
-        carx = 1500;
+    if(carx <-400)
+        carx = 1600;
 
     sunx += speed; //position=position+speed;
     suny +=speed/4;
@@ -29,7 +29,21 @@ void update(int value) {
 
 	glutTimerFunc(100, update, 0);
 }
+void handleKeypress(unsigned char key, int x, int y) {
+	switch (key) {
+case 'f':
+    carspeed = 35.0f;
+    break;
+case 'm':
+    carspeed = 15.0f;
+    break;
+case 's':
+    carspeed = 6.0f;
+    break;
 
+glutPostRedisplay();
+	}
+}
 
 
 void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width);
@@ -308,10 +322,6 @@ void trees(){
 
 
 }
-
-
-
-
 void footpath(){
 	int flag=0;
 	glColor3ub(57, 48, 39);//road footpath
@@ -380,24 +390,53 @@ void car(){
      glPushMatrix();
      glTranslatef(carx,0,0);
 
+     glColor3ub(180,80,35); // body down part
+     drawQuads(250,950,20,150);
+
+    glBegin(GL_QUADS); // body up part
+    glColor3ub(180,80,35);
+    glVertex2f(250,950);
+    glVertex2f(300,930);
+    glVertex2f(380,930);
+    glVertex2f(400,950);
+    glEnd();
+
+    glColor3ub(220,160,100); // window
+    drawQuads(310,930,25,40);
+
+    glColor3ub(40,50,70); //wheel
+    circle(280,970, 15);
+    circle(380,970, 15);
+
+
+    glPopMatrix();
+
+}
+
+void car2(){
+
+     glPushMatrix();
+     glTranslatef(carx,0,0);
+
      glColor3ub(50,70,75); // body down part
-     drawQuads(250,950,40,200);
+     drawQuads(850,950,40,200);
 
     glBegin(GL_QUADS); // body up part
     glColor3ub(50,70,75);
-    glVertex2f(250,950);
-    glVertex2f(300,920);
-    glVertex2f(430,920);
-    glVertex2f(450,950);
+    glVertex2f(850,950);
+    glVertex2f(900,920);
+    glVertex2f(1030,920);
+    glVertex2f(1050,950);
     glEnd();
 
     glColor3ub(122,122,122); // window
-    drawQuads(310,930,25,40);
-    drawQuads(380,930,25,40);
+    drawQuads(910,930,25,40);
+    drawQuads(980,930,25,40);
 
-    glColor3ub(0,0,0); //wheel
-    circle(280,980, 15);
-    circle(420,980, 15);
+    glColor3ub(40,50,70); //wheel
+    circle(880,980, 15);
+    circle(1020,980, 15);
+
 
     glPopMatrix();
 
@@ -423,6 +462,7 @@ sun();
 footpath();
 
 car();
+car2();
 //trees
 //trees();
 
@@ -454,6 +494,8 @@ glutInitWindowPosition (960, 540);
 glutCreateWindow ("Songsod Vobon");
 glutDisplayFunc(myDisplay);
 myInit ();
+
+glutKeyboardFunc(handleKeypress); // for key-board
 glutTimerFunc(100, update, 0);
 glutMainLoop();
 
