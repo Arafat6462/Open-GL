@@ -7,6 +7,7 @@ GLfloat sunx = 0.0f;
 GLfloat suny = 0.0f;
 GLfloat carx = 0.0f;
 GLfloat speed = 5.0f;
+GLfloat planex = .0f;
 GLfloat carspeed = 8.0f;
 
 
@@ -21,10 +22,14 @@ void update(int value) {
     if(carx <-400)
         carx = 1600;
 
+    if(planex < 0)
+        planex = 1600;
+
     sunx += speed; //position=position+speed;
     suny +=speed/4;
     carx -=carspeed;
 	glutPostRedisplay();
+	planex -= 8;
 
 
 	glutTimerFunc(100, update, 0);
@@ -443,6 +448,8 @@ void car2(){
 
 void plane(){
 
+  glPushMatrix();
+  glTranslatef(planex,0,0);
 
 glBegin(GL_POLYGON); ///// body
 glColor3f(1.0f, 1.0f,0.0f);
@@ -499,6 +506,7 @@ glBegin(GL_QUADS);
     glVertex2f(282.294,289.301);
     glVertex2f(282.294,400.39);
     glEnd();
+     glPopMatrix();
 
 }
 void myDisplay(void)
@@ -527,7 +535,7 @@ car2();
 
 
 //Building
-//building();
+building();
 
 
 
