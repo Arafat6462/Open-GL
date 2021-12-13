@@ -384,7 +384,6 @@ void sun(){
 
 
 }
-
 void car(){
 
      glPushMatrix();
@@ -412,7 +411,6 @@ void car(){
     glPopMatrix();
 
 }
-
 void car2(){
 
      glPushMatrix();
@@ -442,6 +440,67 @@ void car2(){
 
 }
 
+
+void plane(){
+
+
+glBegin(GL_POLYGON); ///// body
+glColor3f(1.0f, 1.0f,0.0f);
+
+glVertex2f(652.0f,320.0f);
+glVertex2f(556.0f,288.3f);
+glVertex2f(268.3f,288.3f);
+glVertex2f(268.3f,400.5f);
+glVertex2f(556.6f,400.5f);
+glVertex2f(652.7f,382.45f);
+
+
+glEnd();
+glBegin(GL_LINES);
+glColor3ub(0,0,0);
+glVertex2f(336.35,288.3);
+glVertex2f(336.35,400.5);
+glEnd();
+
+ glBegin(GL_QUADS);
+    glColor3ub(132,165,204);
+    glVertex2f(642,315);
+    glVertex2f(700,270);
+    glVertex2f(780,280);
+    glVertex2f(642,390);
+    glEnd();
+
+glBegin(GL_QUADS);
+    glColor3ub(132,165,204);
+    glVertex2f(480.5,288.3);
+    glVertex2f(576.6,150.1);
+    glVertex2f(475.495,160.065);
+    glVertex2f(384.4,288.3);
+    glEnd();
+    glBegin(GL_QUADS);
+    glColor3ub(132,165,204);
+    glVertex2f(480.5,400.5);
+    glVertex2f(547.57,515.62);
+    glVertex2f(451.47,515.62);
+    glVertex2f(384.4,400.5);
+    glEnd();
+    glBegin(GL_QUADS);
+    glColor3ub(132,165,204);
+    glVertex2f(288.3,363.41);
+    glVertex2f(278.29,363.41);
+    glVertex2f(278.29,344.39);
+    glVertex2f(288.3,344.39);
+    glEnd();
+
+        glBegin(GL_QUADS);
+    glColor3ub(132,165,204);
+    glVertex2f(284.296,400.39);
+    glVertex2f(284.296,289.301);
+    glVertex2f(282.294,289.301);
+    glVertex2f(282.294,400.39);
+    glEnd();
+
+}
 void myDisplay(void)
 {
 glClear (GL_COLOR_BUFFER_BIT);
@@ -460,14 +519,15 @@ sun();
 
 //footpath
 footpath();
-
+plane();
 car();
 car2();
 //trees
 //trees();
 
+
 //Building
-building();
+//building();
 
 
 

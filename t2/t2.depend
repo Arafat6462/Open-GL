@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1514140588 source:c:\users\arafa\onedrive\documents\open gl\t2\main.cpp
-	<GLUT/glut.h>
+1639409666 source:c:\users\arafa\onedrive\documents\open gl\t2\main.cpp
+	<windows.h>
+	<GL/gl.h>
 	<GL/glut.h>
-	<stdlib.h>
+	<math.h>
 
 976692172 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
 	<windows.h>
@@ -218,4 +219,7 @@
 1301111164 c:\program files (x86)\codeblocks\mingw\include\gl\glu.h
 	<stddef.h>
 	<GL/gl.h>
+
+1341006774 c:\program files (x86)\codeblocks\mingw\include\math.h
+	<_mingw.h>
 
