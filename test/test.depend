@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1637635543 source:c:\users\arafa\onedrive\documents\open gl\test\main.cpp
-	<cstdio>
-	<GL/gl.h>
+1639387498 source:c:\users\arafa\onedrive\documents\open gl\test\main.cpp
+	<windows.h>
 	<GL/glut.h>
+	<math.h>
 
 1301111162 c:\program files (x86)\codeblocks\mingw\include\windows.h
 	<winresrc.h>

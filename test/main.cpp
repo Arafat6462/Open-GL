@@ -1,144 +1,153 @@
- #include<cstdio>
+#include <windows.h>  // for MS Windows
+#include <GL/glut.h>  // GLUT, include glu.h and gl.h
+#include<math.h>>
 
-#include <GL/gl.h>
-#include <GL/glut.h>
-
-
+# define PI           3.14159265358979323846
 GLfloat position = 0.0f;
-GLfloat position1 = 0.0f;
 GLfloat speed = 0.1f;
-void dis();
-void display();
 
 void update(int value) {
 
-    if(position <-1.5)
-        position = 1.0f;
+  if(position <-1.0)
+        position = 1.2f;
 
     position -= speed;
 
 	glutPostRedisplay();
 
 
-	glutTimerFunc(100,update,0);
+	glutTimerFunc(100, update, 0);
 }
 
 
-void update1(int value) {
 
-    if(position1 >1.0)
-        position1 = -1.0f;
-
-    position1 += speed;
-
-	glutPostRedisplay();
-
-
-	glutTimerFunc(100,update1,0);
-}
-
-void init() {
-   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-}
-
-void disback(int val)
-{
-    //glutDisplayFunc(display);
-}
-
-
-void late_night()
-{
+void display() {
     glClear(GL_COLOR_BUFFER_BIT);
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glLoadIdentity();
     glPushMatrix();
-glTranslatef(0.0f,position, 0.0f);
-   glBegin(GL_QUADS);
-      glColor3f(0.0f, 0.0f, 1.0f);
-      glVertex2f(-0.2f, -0.2f);
-      glVertex2f( 0.2f, -0.2f);
-      glVertex2f( 0.2f,  0.2f);
-      glVertex2f(-0.2f,  0.2f);
-   glEnd();
-   glPopMatrix();
-   //glutTimerFunc(1500,disback,0);
-   glFlush();
+    glTranslatef(position,0.0f, 0.0f);
 
+
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	int i;
+
+	GLfloat x=.1f; GLfloat y=.4f; GLfloat radius =.2f;
+	int triangleAmount = 20;
+
+	GLfloat twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	 x=.3f;  y=.4f;  radius =.3f;
+	 triangleAmount = 20;
+	 twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	 x=.6f;  y=.4f;  radius =.2f;
+	 triangleAmount = 20;
+
+	 twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+
+	 x=-.1f;  y=-.4f;  radius =.2f;
+	 triangleAmount = 20;
+	 twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	 x=-.3f;  y=-.4f;  radius =.3f;
+	 triangleAmount = 20;
+
+	 twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	 x=-.6f;  y=-.4f;  radius =.2f;
+	 triangleAmount = 20;
+
+	 twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(248,249,249);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	glPopMatrix();
+	glFlush();
 }
 
-void demo_late_night(int val) {
 
- glutDisplayFunc(late_night);
-
-
-}
-
-
-
-void night()
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glPushMatrix();
-glTranslatef(position1,0.0f, 0.0f);
-   glBegin(GL_QUADS);
-      glColor3f(0.0f, 1.0f, 0.0f);
-      glVertex2f(-0.2f, -0.2f);
-      glVertex2f( 0.2f, -0.2f);
-      glVertex2f( 0.2f,  0.2f);
-      glVertex2f(-0.2f,  0.2f);
-   glEnd();
-   glPopMatrix();
-   glutTimerFunc(1500,demo_late_night,0);
-   glFlush();
-}
-
-void night_demo(int val) {
-
- glutDisplayFunc(night);
-
-
-}
-void day() {
-   glClear(GL_COLOR_BUFFER_BIT);
-
-
-glPushMatrix();
-glTranslatef(position,0.0f, 0.0f);
-   glBegin(GL_QUADS);
-      glColor3f(1.0f, 0.0f, 0.0f);
-      glVertex2f(-0.2f, -0.2f);
-      glVertex2f( 0.2f, -0.2f);
-      glVertex2f( 0.2f,  0.2f);
-      glVertex2f(-0.2f,  0.2f);
-   glEnd();
-   glBegin(GL_TRIANGLES);
-   glColor3f(0.0f, 0.0f, 1.0f);
-   glVertex2f(0.2f,-0.2f);
-   glVertex2f(0.5f, 0.0f);
-   glVertex2f(0.2f, 0.2f);
-   glEnd();
-
-glPopMatrix();
-
-glutTimerFunc(1500,night_demo,0);
-glFlush();
-
-}
 
 
 
 int main(int argc, char** argv) {
-   glutInit(&argc, argv);
-   glutInitWindowSize(320, 320);
-   glutInitWindowPosition(50, 50);
-   glutCreateWindow("Translation Animation");
-   glutDisplayFunc(day);
-   init();
-
-   glutTimerFunc(100, update, 0);
-     glutTimerFunc(100, update1, 0);
-   glutMainLoop();
-   return 0;
+	glutInit(&argc, argv);
+	glutCreateWindow("Cloud Moving");
+	glutInitWindowSize(1920,1820);
+	glutDisplayFunc(display);
+    glutTimerFunc(100, update, 0);
+	glutMainLoop();
+	return 0;
 }
+
+
 

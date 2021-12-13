@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1639381472 source:c:\users\arafa\onedrive\documents\open gl\y\main.cpp
+1639381696 source:c:\users\arafa\onedrive\documents\open gl\y\main.cpp
 	<cstdio>
 	<GL/gl.h>
 	<GL/glut.h>

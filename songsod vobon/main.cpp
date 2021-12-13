@@ -3,6 +3,23 @@
 #include <GL/glut.h>
 #include<math.h>>
 # define PI           3.14159265358979323846
+GLfloat position = 0.0f;
+GLfloat speed = 30.0f;
+
+
+void update(int value) {
+
+    if(position >1920)
+        position = 0.0f;
+
+    position += speed; //position=position+speed;
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100, update, 0);
+}
+
 
 void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width);
 void drawSquare(GLfloat x, GLfloat y, GLfloat height);
@@ -284,13 +301,6 @@ void trees(){
 
 
 
-
-
-
-
-
-
-
 void footpath(){
 	int flag=0;
 	glColor3ub(57, 48, 39);//road footpath
@@ -322,16 +332,49 @@ void footpath(){
 }
 
 
+
+
+void movingsun(){
+
+glPushMatrix();
+glTranslatef(position,position,0);
+
+
+	GLfloat  x=position;  GLfloat y=position;  GLfloat radius =70.0f;
+	 int triangleAmount = 150; //# of triangles used to draw circle
+
+	//GLfloat radius = 0.8f; //radius
+    GLfloat twicePi = 2.0f * PI;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255,172,64);
+		glVertex2f(x, y); // center of circle
+		for(int i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+                    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+		glEnd();
+
+glPopMatrix();
+
+}
+
+
 void myDisplay(void)
 {
 glClear (GL_COLOR_BUFFER_BIT);
 
 glPointSize(5.0);
 
+
+
+
 //background theme
 background(1, 2, 3, 4);
 
-
+movingsun();
 
 //footpath
 footpath();
@@ -341,6 +384,7 @@ footpath();
 
 //Building
 building();
+
 
 
 glEnd();
